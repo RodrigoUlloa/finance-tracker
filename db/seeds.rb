@@ -10,4 +10,4 @@
   u = User.create!(email: "email#{i}@gmail.com", password: "123456", first_name: "user#{i}", last_name: "last#{i}")
 end
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
