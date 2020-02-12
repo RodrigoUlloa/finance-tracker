@@ -6,7 +6,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, :omniauth_providers => [:facebook]
 
   def stock_already_tracked?(ticker_symbol)
     stock = Stock.check_db(ticker_symbol)
@@ -56,5 +57,13 @@ class User < ApplicationRecord
 
   def not_friends_with?(id_of_friend)
     !self.friends.where(id: id_of_friend).exists?
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do|user|
+      user.email = auth.info.email
+      user.password =Devise.friendly_token[0,20]
+      user.first_name = auth.info.name
+    end
   end
 end

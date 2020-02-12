@@ -27,6 +27,7 @@ gem "font-awesome-rails"
 gem 'activeadmin'
 gem 'chartkick'
 gem 'groupdate'
+gem 'omniauth-facebook'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
